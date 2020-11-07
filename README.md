@@ -7,3 +7,15 @@
 https://asia-east2-quickstart-1583673940423.cloudfunctions.net
 /getUserACListWithSession?userIds[]=1&userIds[]=2&sessionId=VRWRGREG
 ```
+
+
+回傳
+```json
+{
+    "12345": ["a001", "a002", "a003"],
+    "9876": ["a001", "a002"],
+    "888": []
+}
+```
+
+可以搭配google sheet及appscript使用，可參考`./appscript.js`

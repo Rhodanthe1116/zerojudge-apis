@@ -29,8 +29,8 @@ exports.getUserACList = (req, res) => {
 
 async function main(userIds, sessionId) {
 
-    const account = ''
-    const passwd = ''
+    const account = process.env.USERNAME
+    const passwd = process.env.PASSWORD
 
     try {
 
@@ -44,15 +44,27 @@ async function main(userIds, sessionId) {
     } catch (error) {
         console.log('Given sessionId failed.')
         console.log('Error: ' + error)
+        throw error
     }
+
+    let newSessionId = null;
 
     try {
 
         console.log(`sessionId ${sessionId} is not given or failed, trying to login...`)
         const newSession = await login(account, passwd)
-        const newSessionId = newSession.sessionId;
+        newSessionId = newSession.sessionId;
         console.log(sessionId)
+    } catch (error) {
+        console.log('Error: ' + error)
+        console.log(newSessionId)
+        const res = await logout(newSessionId)
+        console.log(res)
+        throw new Error(`sessionId ${sessionId} is not given or failed. Tried to login but failed`)
+        throw error
+    }
 
+    try {   
         const usersACList = await getUsersACList(userIds, newSessionId);
 
         console.log('success, logout')
@@ -61,12 +73,14 @@ async function main(userIds, sessionId) {
 
         return usersACList
     } catch (error) {
-        console.log('Error: ' + error)
+        console.log('Error getting users AC list: ' + error)
         console.log(newSessionId)
         const res = await logout(newSessionId)
         console.log(res)
         throw error
     }
+
+
 }
 
 async function getUsersACList(userIds, sessionId) {
