@@ -18,4 +18,7 @@ https://asia-east2-quickstart-1583673940423.cloudfunctions.net
 }
 ```
 
-可以搭配google sheet及appscript使用，可參考`./appscript.js`
+可以搭配google sheet及appscript使用。
+[範例](https://docs.google.com/spreadsheets/d/1f9sJVCDZzTw9S0RsuOJFXqnwxdhq1z0PSVLUXTDmH48/edit?usp=sharing)
+
+可參考`./appscript.js`
